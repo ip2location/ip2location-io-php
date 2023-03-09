@@ -22,13 +22,13 @@ class IPGeolocation
 	 *
 	 * @return object IP2Location.io IP geolocation result in JSON object
 	 */
-	public function lookup($params = [])
+	public function lookup($ip, $language = '')
 	{
 		$queries = [
 			'key'            => $this->iplIOApiKey,
 			'format'         => 'json',
-			'ip'             => (isset($params['ip'])) ? $params['ip'] : '',
-			'lang'           => (isset($params['lang'])) ? $params['lang'] : '',
+			'ip'             => (isset($ip)) ? $ip : '',
+			'lang'           => (isset($language)) ? $language : '',
 			'source'         => 'sdk-php-iplio',
 			'source_version' => Configuration::VERSION,
 		];

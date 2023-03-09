@@ -22,12 +22,12 @@ class DomainWhois
 	 *
 	 * @return object IP2WHOIS Domain WHOIS result in JSON object
 	 */
-	public function lookup($params = [])
+	public function lookup($domain)
 	{
 		$queries = [
 			'key'            => $this->iplIOApiKey,
 			'format'         => 'json',
-			'domain'         => (isset($params['domain'])) ? $params['domain'] : '',
+			'domain'         => (isset($domain)) ? $domain : '',
 			'source'         => 'sdk-php-iplio',
 			'source_version' => Configuration::VERSION,
 		];

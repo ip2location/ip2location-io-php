@@ -16,10 +16,7 @@ $config = new \IP2LocationIO\Configuration('YOUR_API_KEY');
 $ip2locationio = new IP2LocationIO\IPGeolocation($config);
 
 // Lookup ip address geolocation data
-$ip2locationio->lookup([
-	'ip'		=> '8.8.8.8',
-	'lang'		=> 'en', // This parameter is only available for Plus and Security plan only.
-]);
+$ip2locationio->lookup('8.8.8.8', 'en'); // The language parameter is only available for Plus and Security plan only.
 ```
 
 ### Lookup Domain Information
@@ -29,9 +26,7 @@ $config = new \IP2LocationIO\Configuration('YOUR_API_KEY');
 $ip2locationio = new IP2LocationIO\DomainWhois($config);
 
 // Lookup domain information
-$ip2locationio->lookup([
-	'domain'	=> 'example.com',
-]);
+$ip2locationio->lookup('example.com');
 ```
 
 ### Convert Normal Text to Punycode

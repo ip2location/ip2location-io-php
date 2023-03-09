@@ -9,9 +9,7 @@ class DomainWhoisTest extends TestCase
 	public function testInvalidApiKey() {
 		$config = new IP2LocationIO\Configuration('');
 		$ip2locationio = new IP2LocationIO\DomainWhois($config);
-		$result = $ip2locationio->lookup([
-			'domain'	=> 'example.c',
-		]);
+		$result = $ip2locationio->lookup('example.c');
 
 		$this->assertEquals(
 			'Missing parameter.',
@@ -43,9 +41,7 @@ class DomainWhoisTest extends TestCase
 	public function testLookupIP() {
 		$config = new IP2LocationIO\Configuration($GLOBALS['testApiKey']);
 		$ip2locationio = new IP2LocationIO\DomainWhois($config);
-		$result = $ip2locationio->lookup([
-			'domain'	=> 'example.c',
-		]);
+		$result = $ip2locationio->lookup('example.c');
 
 		if ($GLOBALS['testApiKey'] == 'YOUR_API_KEY') {
 			$this->assertEquals(
