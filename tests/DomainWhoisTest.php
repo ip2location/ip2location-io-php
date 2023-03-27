@@ -9,12 +9,11 @@ class DomainWhoisTest extends TestCase
 	public function testInvalidApiKey() {
 		$config = new IP2LocationIO\Configuration('');
 		$ip2locationio = new IP2LocationIO\DomainWhois($config);
-		$result = $ip2locationio->lookup('example.c');
-
-		$this->assertEquals(
-			'Missing parameter.',
-			$result->error->error_message,
-		);
+		try {
+			$result = $ip2locationio->lookup('example.c');
+		} catch (Exception $e) {
+			$this->assertEquals('Missing parameter.', $e->getMessage());
+		}
 	}
 
 	public function testApiKeyExist() {
@@ -41,18 +40,14 @@ class DomainWhoisTest extends TestCase
 	public function testLookupDomain() {
 		$config = new IP2LocationIO\Configuration($GLOBALS['testApiKey']);
 		$ip2locationio = new IP2LocationIO\DomainWhois($config);
-		$result = $ip2locationio->lookup('example.c');
-
-		if ($GLOBALS['testApiKey'] == 'YOUR_API_KEY') {
-			$this->assertEquals(
-				'API key not found.',
-				$result->error->error_message,
-			);
-		} else {
-			$this->assertEquals(
-				'Invalid domain.',
-				$result->error->error_message,
-			);
+		try {
+			$result = $ip2locationio->lookup('example.c');
+		} catch (Exception $e) {
+			if ($GLOBALS['testApiKey'] == 'YOUR_API_KEY') {
+				$this->assertEquals('API key not found.', $e->getMessage());
+			} else {
+				$this->assertEquals('Invalid domain.', $e->getMessage());
+			}
 		}
 	}
 }

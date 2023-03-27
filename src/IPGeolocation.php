@@ -2,11 +2,7 @@
 
 namespace IP2LocationIO;
 
-function ipErrorHandler($errNo, $errStr) {
-	echo "Error: " . $errStr . PHP_EOL;
-}
-
-set_error_handler("IP2LocationIO\ipErrorHandler");
+use IP2LocationIO\IPLException;
 
 /**
  * IP2Location.io IP Geolocation module.
@@ -43,14 +39,15 @@ class IPGeolocation
 		$response = $http->get('https://api.ip2location.io/?', $queries);
 
 		if (($json = json_decode($response)) === null) {
-			return false;
+			// return false;
+			throw new IPLException('IPGeolocation lookup error.');
 		}
 
 		if (isset($json->error)) {
-			trigger_error($json->error->error_message);
+			throw new IPLException($json->error->error_message);
+		} else {
+			return $json;
 		}
-
-		return $json;
 	}
 }
 

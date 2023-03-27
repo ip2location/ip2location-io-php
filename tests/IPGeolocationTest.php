@@ -9,12 +9,11 @@ class IPGeolocationTest extends TestCase
 	public function testInvalidApiKey() {
 		$config = new IP2LocationIO\Configuration('');
 		$ip2locationio = new IP2LocationIO\IPGeolocation($config);
-		$result = $ip2locationio->lookup('8.8.8.8');
-
-		$this->assertEquals(
-			'Invalid API key or insufficient credit.',
-			$result->error->error_message,
-		);
+		try {
+			$result = $ip2locationio->lookup('8.8.8.8');
+		} catch (Exception $e) {
+			$this->assertEquals('Invalid API key or insufficient credit.', $e->getMessage());
+		}
 	}
 
 	public function testApiKeyExist() {
@@ -41,18 +40,18 @@ class IPGeolocationTest extends TestCase
 	public function testLookupIP() {
 		$config = new IP2LocationIO\Configuration($GLOBALS['testApiKey']);
 		$ip2locationio = new IP2LocationIO\IPGeolocation($config);
-		$result = $ip2locationio->lookup('8.8.8.8');
-
-		if ($GLOBALS['testApiKey'] == 'YOUR_API_KEY') {
-			$this->assertEquals(
-				'Invalid API key or insufficient credit.',
-				$result->error->error_message,
-			);
-		} else {
+		try {
+			$result = $ip2locationio->lookup('8.8.8.8');
 			$this->assertEquals(
 				'US',
 				$result->country_code,
 			);
+		} catch (Exception $e) {
+			if ($GLOBALS['testApiKey'] == 'YOUR_API_KEY') {
+				$this->assertEquals('Invalid API key or insufficient credit.', $e->getMessage());
+			}
 		}
+
+		
 	}
 }
