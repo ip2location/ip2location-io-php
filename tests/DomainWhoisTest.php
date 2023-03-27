@@ -38,7 +38,7 @@ class DomainWhoisTest extends TestCase
 		}
 	}
 
-	public function testLookupIP() {
+	public function testLookupDomain() {
 		$config = new IP2LocationIO\Configuration($GLOBALS['testApiKey']);
 		$ip2locationio = new IP2LocationIO\DomainWhois($config);
 		$result = $ip2locationio->lookup('example.c');

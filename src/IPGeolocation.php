@@ -2,6 +2,12 @@
 
 namespace IP2LocationIO;
 
+function ipErrorHandler($errNo, $errStr) {
+	echo "Error: " . $errStr . PHP_EOL;
+}
+
+set_error_handler("IP2LocationIO\ipErrorHandler");
+
 /**
  * IP2Location.io IP Geolocation module.
  */
@@ -38,6 +44,10 @@ class IPGeolocation
 
 		if (($json = json_decode($response)) === null) {
 			return false;
+		}
+
+		if (isset($json->error)) {
+			trigger_error($json->error->error_message);
 		}
 
 		return $json;

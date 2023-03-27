@@ -2,6 +2,12 @@
 
 namespace IP2LocationIO;
 
+function domainErrorHandler($errNo, $errStr) {
+	echo "Error: " . $errStr . PHP_EOL;
+}
+
+set_error_handler("IP2LocationIO\domainErrorHandler");
+
 /**
  * IP2WHOIS Domain WHOIS module.
  */
@@ -37,6 +43,10 @@ class DomainWhois
 
 		if (($json = json_decode($response)) === null) {
 			return false;
+		}
+
+		if (isset($json->error)) {
+			trigger_error($json->error->error_message);
 		}
 
 		return $json;
