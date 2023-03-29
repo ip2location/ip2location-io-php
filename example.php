@@ -10,7 +10,7 @@ try {
     $result = $ip2locationio->lookup('8.8.8.8');
     var_dump($result->country_code);
 } catch(Exception $e) {
-    var_dump($e->getMessage());
+    var_dump($e->getCode() . ": " . $e->getMessage());
 }
 
 
@@ -20,7 +20,7 @@ try {
     $result = $ip2locationio->lookup('locaproxy.com');
     var_dump($result->domain);
 } catch(Exception $e) {
-    var_dump($e->getMessage());
+    var_dump($e->getCode() . ": " . $e->getMessage());
 }
 var_dump($ip2locationio->getPunycode('täst.de'));
 var_dump($ip2locationio->getNormalText('xn--tst-qla.de'));

@@ -2,12 +2,12 @@
 
 namespace IP2LocationIO;
 
-use IP2LocationIO\IPLException;
+use Exception;
 
 /**
  * IP2WHOIS Domain WHOIS module.
  */
-class DomainWhois
+class DomainWhois extends \Exception
 {
 
 	private $iplIOApiKey = '';
@@ -39,11 +39,11 @@ class DomainWhois
 
 		if (($json = json_decode($response)) === null) {
 			// return false;
-			throw new IPLException('DomainWhois lookup error.');
+			throw new Exception('DomainWhois lookup error.', 10005);
 		}
 
 		if (isset($json->error)) {
-			throw new IPLException($json->error->error_message);
+			throw new Exception($json->error->error_message, $json->error->error_code);
 		} else {
 			return $json;
 		}
