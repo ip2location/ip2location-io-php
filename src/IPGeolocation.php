@@ -2,12 +2,10 @@
 
 namespace IP2LocationIO;
 
-use Exception;
-
 /**
  * IP2Location.io IP Geolocation module.
  */
-class IPGeolocation extends \Exception
+class IPGeolocation
 {
 
 	private $iplIOApiKey = '';
@@ -40,11 +38,11 @@ class IPGeolocation extends \Exception
 
 		if (($json = json_decode($response)) === null) {
 			// return false;
-			throw new Exception('IPGeolocation lookup error.', 10005);
+			throw new \Exception('IPGeolocation lookup error.', 10005);
 		}
 
 		if (isset($json->error)) {
-			throw new Exception($json->error->error_message, $json->error->error_code);
+			throw new \Exception($json->error->error_message, $json->error->error_code);
 		} else {
 			return $json;
 		}
