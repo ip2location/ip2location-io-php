@@ -351,7 +351,7 @@ Response Parameter
         "fax": "",
         "email": ""
     },
-    "nameservers": "vera.ns.cloudflare.com, walt.ns.cloudflare.com"
+    "nameservers": ["vera.ns.cloudflare.com", "walt.ns.cloudflare.com"]
 }
 ```
 
