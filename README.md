@@ -286,7 +286,7 @@ Response Parameter
 |billing.phone|string|Billing phone number.|
 |billing.fax|string|Billing fax number.|
 |billing.email|string|Billing email address.|
-|name_servers|array|Name servers|
+|nameservers|array|Name servers|
 
 ```json
 {
