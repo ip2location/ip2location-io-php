@@ -1,6 +1,6 @@
 IP2Location.io PHP SDK
 ========================
-This PHP module enables user to query for an enriched data set, such as country, region, city, latitude & longitude, ZIP code, time zone, ASN, ISP, domain, net speed, IDD code, area code, weather station data, MNC, MCC, mobile brand, elevation, usage type, address type, advertisement category and proxy data with an IP address. It supports both IPv4 and IPv6 address lookup.
+This PHP module enables user to query for an enriched data set, such as country, region, district, city, latitude & longitude, ZIP code, time zone, ASN, ISP, domain, net speed, IDD code, area code, weather station data, MNC, MCC, mobile brand, elevation, usage type, address type, advertisement category and proxy data with an IP address. It supports both IPv4 and IPv6 address lookup.
 
 In addition, this module provides WHOIS lookup api that helps users to obtain domain information, WHOIS record, by using a domain name. The WHOIS API returns a comprehensive WHOIS data such as creation date, updated date, expiration date, domain age, the contact information of the registrant, mailing address, phone number, email address, nameservers the domain is using and much more.
 
@@ -103,6 +103,7 @@ Response Parameter
 |continent.code|string|Two-character continent code.|
 |continent.hemisphere|array|The hemisphere of where the country located. The data in array format with first item indicates (north/south) hemisphere and second item indicates (east/west) hemisphere information.|
 |continent.translation|object|Translation data based on the given lang code.|
+|district|string|District or county name.|
 |country.name|string|Country name based on ISO 3166.|
 |country.alpha3_code|string|Three-character country code based on ISO 3166.|
 |country.numeric_code|string|Three-character country numeric code based on ISO 3166.|
@@ -170,6 +171,7 @@ Response Parameter
             "value":"북아메리카"
         }
     },
+    "district": "Santa Clara County",
     "country":{
         "name":"United States of America",
         "alpha3_code":"USA",
