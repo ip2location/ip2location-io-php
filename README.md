@@ -10,7 +10,7 @@ In addition, this module provides WHOIS lookup api that helps users to obtain do
 This module requires API key to function. You may sign up for a free API key at https://www.ip2location.io/pricing.
 
 
-INSTALLATION
+Installation
 ============
 Install this package using **composer** as below:
 
