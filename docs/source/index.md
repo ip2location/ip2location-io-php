@@ -1,5 +1,4 @@
-IP2Location.io PHP SDK
-========================
+# IP2Location.io PHP SDK
 [![Latest Stable Version](https://img.shields.io/packagist/v/ip2location/ip2location-io-php.svg)](https://packagist.org/packages/ip2location/ip2location-io-php)
 [![Total Downloads](https://img.shields.io/packagist/dt/ip2location/ip2location-io-php.svg?style=flat-square)](https://packagist.org/packages/ip2location/ip2location-io-php)  
 
@@ -7,15 +6,12 @@ This PHP module enables user to query for an enriched data set, such as country,
 
 In addition, this module provides WHOIS lookup api that helps users to obtain domain information, WHOIS record, by using a domain name. The WHOIS API returns a comprehensive WHOIS data such as creation date, updated date, expiration date, domain age, the contact information of the registrant, mailing address, phone number, email address, nameservers the domain is using and much more.
 
-This module requires API key to function. You may sign up for a free API key at https://www.ip2location.io/pricing.
 
+## Table of contents
+ ```{eval-rst}
+ .. toctree::
 
-Developer Documentation
-=====================
-
-To learn more about installation, usage, and code examples, please visit the developer documentation at [https://ip2location-python.readthedocs.io/en/latest/index.html](https://ip2location-python.readthedocs.io/en/latest/index.html).
-
-
-LICENCE
-=====================
-See the LICENSE file.
+   self
+   quickstart
+   code
+ ```
