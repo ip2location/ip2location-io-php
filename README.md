@@ -13,7 +13,7 @@ This module requires API key to function. You may sign up for a free API key at 
 Developer Documentation
 =====================
 
-To learn more about installation, usage, and code examples, please visit the developer documentation at [https://ip2location-python.readthedocs.io/en/latest/index.html](https://ip2location-python.readthedocs.io/en/latest/index.html).
+To learn more about installation, usage, and code examples, please visit the developer documentation at [https://ip2location-io-php.readthedocs.io/en/latest/index.html](https://ip2location-io-php.readthedocs.io/en/latest/index.html).
 
 
 LICENCE
