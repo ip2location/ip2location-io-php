@@ -60,7 +60,6 @@ Note: This parameter is only available for Plus and Security plan only.
 |continent.code|string|Two-character continent code.|
 |continent.hemisphere|array|The hemisphere of where the country located. The data in array format with first item indicates (north/south) hemisphere and second item indicates (east/west) hemisphere information.|
 |continent.translation|object|Translation data based on the given lang code.|
-|district|string|District or county name.|
 |country.name|string|Country name based on ISO 3166.|
 |country.alpha3_code|string|Three-character country code based on ISO 3166.|
 |country.numeric_code|string|Three-character country numeric code based on ISO 3166.|
@@ -87,11 +86,22 @@ Note: This parameter is only available for Plus and Security plan only.
 |geotargeting.metro|string|Metro code based on zip/postal code.|
 |ads_category|string|The domain category code based on IAB Tech Lab Content Taxonomy.|
 |ads_category_name|string|The domain category based on IAB Tech Lab Content Taxonomy. These categories are comprised of Tier-1 and Tier-2 (if available) level categories widely used in services like advertising, Internet security and filtering appliances.|
+|district|string|District or county name.|
 |is_proxy|boolean|Whether is a proxy or not.|
 |proxy.last_seen|integer|Proxy last seen in days.|
 |proxy.proxy_type|string|Type of proxy.|
 |proxy.threat|string|Security threat reported.|
 |proxy.provider|string|Name of VPN provider if available.|
+|proxy.is_vpn|boolean|Anonymizing VPN services.|
+|proxy.is_tor|boolean|Tor Exit Nodes.|
+|proxy.is_data_center|boolean|Hosting Provider, Data Center or Content Delivery Network.|
+|proxy.is_public_proxy|boolean|Public Proxies.|
+|proxy.is_web_proxy|boolean|Web Proxies.|
+|proxy.is_web_crawler|boolean|Search Engine Robots.|
+|proxy.is_residential_proxy|boolean|Residential proxies.|
+|proxy.is_spammer|boolean|Email and forum spammers.|
+|proxy.is_scanner|boolean|Network security scanners.|
+|proxy.is_botnet|boolean|Malware infected devices.|
 ```
 
 ## DomainWhois Class
