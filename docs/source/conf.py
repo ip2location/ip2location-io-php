@@ -6,7 +6,7 @@
 # -- Project information
 
 project = 'IP2Location.io PHP SDK'
-copyright = '2023, IP2Location'
+copyright = '2024, IP2Location'
 author = 'IP2Location'
 
 release = '1.0.0'
