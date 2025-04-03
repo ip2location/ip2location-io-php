@@ -3,7 +3,7 @@
     "type": "library",
     "description": "IP2Location.io PHP SDK to get geolocation info from IPv4 and IPv6 address.",
     "license": "MIT",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "authors": [
         {
             "name": "IP2Location",
@@ -11,7 +11,7 @@
         }
     ],
     "require": {
-        "php": ">=5.4.0",
+        "php": ">=7.4",
         "ext-curl": "*"
     },
     "require-dev": {

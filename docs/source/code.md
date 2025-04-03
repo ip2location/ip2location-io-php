@@ -212,3 +212,31 @@ Get domain extension from a URL or domain.
 :return: Returns the domain extension in text.
 :rtype: string
 ```
+
+## HostedDomain Class
+
+```{py:class} HostedDomain($config)
+Initialize the HostedDomain class.
+
+:param object $config: (Required) The IP2Location.io Configuration object returned by Configuration class.
+```
+
+```{py:function} lookup($ip_address, $page)
+Retrieve a list of hosted domains for an IP address.
+
+:param string $ip_address: (Required) The IP address (IPv4 or IPv6).
+:param int $page: (Optional) Pagination result returns of the hosted domains. If unspecified, 1st page will be used. 
+:::
+:return: Returns the domain list in JSON. Refer below table for the fields avaliable in the JSON
+:rtype: json
+
+**RETURN FIELDS**
+| Parameter | Type | Description |
+|---|---|---|
+|ip|string|IP address.|
+|total_domains|int|Total number of hosted domains found.|
+|page|int|Current lookup page.|
+|per_page|int|Number of domains displayed in the page.|
+|total_pages|int|Total pages of the hosted domains.|
+|domains|array|Hosted domains of the lookup IP Address.|
+```

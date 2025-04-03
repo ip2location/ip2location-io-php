@@ -3,9 +3,9 @@
 namespace IP2LocationIO;
 
 /**
- * IP2Location.io IP Geolocation module.
+ * IP2Location.io Hosted Domain module.
  */
-class IPGeolocation
+class HostedDomain
 {
 	private $apiKey = '';
 
@@ -23,27 +23,26 @@ class IPGeolocation
 	}
 
 	/**
-	 * Lookup given IP address for an enriched data set.
+	 * Get a list of hosted domain names by IP address.
 	 *
 	 * @param string $ip
-	 * @param string $language
 	 *
 	 * @return object
 	 */
-	public function lookup($ip, $language = '')
+	public function lookup($ip, $page = 1)
 	{
 		$http = new Http();
-		$response = $http->get('https://api.ip2location.io/?' . http_build_query([
+		$response = $http->get('https://domains.ip2whois.com/domains?' . http_build_query([
 			'key'            => $this->apiKey,
 			'format'         => 'json',
 			'ip'             => $ip,
-			'lang'           => $language,
+			'page'           => $page,
 			'source'         => 'sdk-php-iplio',
 			'source_version' => Configuration::VERSION,
 		]));
 
 		if (($json = json_decode($response)) === null) {
-			throw new \Exception('IPGeolocation lookup error.', 10005);
+			throw new \Exception('HostedDomain lookup error.', 10005);
 		}
 
 		if (isset($json->error)) {
@@ -54,4 +53,4 @@ class IPGeolocation
 	}
 }
 
-class_alias('IP2LocationIO\IPGeolocation', 'IP2LocationIO_IPGeolocation');
+class_alias('IP2LocationIO\HostedDomain', 'IP2LocationIO_HostedDomain');

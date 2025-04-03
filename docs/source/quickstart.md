@@ -103,3 +103,19 @@ $ip2locationio = new IP2LocationIO\DomainWhois($config);
 $ip2locationio->getDomainExtension('example.com');
 ?>
 ```
+
+### Get Hosted Domain List
+
+You can get the domains listed within the IP using following codes:
+
+```php
+<?php
+// Configures IP2Location.io API key
+$config = new \IP2LocationIO\Configuration('YOUR_API_KEY');
+$domain = new IP2LocationIO\HostedDomain($config);
+
+// Get a list of hosted domains
+$domain->lookup('8.8.8.8');
+?>
+```
+

@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 use PHPUnit\Framework\TestCase;
 
-class IPGeolocationTest extends TestCase
+class HostedDomainTest extends TestCase
 {
 	public function testInvalidApiKey()
 	{
 		$config = new IP2LocationIO\Configuration('A6BCA0A421AE4634816BA5F121DF8C05');
-		$geolocation = new IP2LocationIO\IPGeolocation($config);
+		$domain = new IP2LocationIO\HostedDomain($config);
 
 		try {
-			$geolocation->lookup('8.8.8.8');
+			$domain->lookup('8.8.8.8');
 		} catch (Exception $e) {
-			$this->assertEquals('Invalid API key or insufficient credit.', $e->getMessage());
+			$this->assertEquals('API key not found.', $e->getMessage());
 		}
 	}
 
@@ -40,15 +40,26 @@ class IPGeolocationTest extends TestCase
 		}
 	}
 
-	public function testLookupIP()
+	public function testLookupDomainInvalidPage()
 	{
 		$config = new IP2LocationIO\Configuration($GLOBALS['testApiKey']);
-		$geolocation = new IP2LocationIO\IPGeolocation($config);
+		$domain = new IP2LocationIO\HostedDomain($config);
 		try {
-			$result = $geolocation->lookup('8.8.8.8');
+			$domain->lookup('8.8.8.8', 100);
+		} catch (Exception $e) {
+			$this->assertEquals('Invalid page value.', $e->getMessage());
+		}
+	}
+
+	public function testLookupDomain()
+	{
+		$config = new IP2LocationIO\Configuration($GLOBALS['testApiKey']);
+		$domain = new IP2LocationIO\HostedDomain($config);
+		try {
+			$result = $domain->lookup('8.8.8.8');
 			$this->assertEquals(
-				'US',
-				$result->country_code,
+				100,
+				count($result->domains),
 			);
 		} catch (Exception $e) {
 			if ($GLOBALS['testApiKey'] == 'YOUR_API_KEY') {

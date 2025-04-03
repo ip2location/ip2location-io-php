@@ -5,8 +5,6 @@ namespace IP2LocationIO;
 /**
  * IP2Location.io HTTP Client
  * Sends Http requests using curl.
- *
- * @copyright 2023 IP2Location.io
  */
 class Http
 {
@@ -14,15 +12,8 @@ class Http
 	{
 	}
 
-	public function get($url, $fields = [])
+	public function get($url)
 	{
-		$query = '';
-		foreach($fields as $key=>$value){
-			$query .= $key . '=' . rawurlencode($value) . '&';
-		}
-		$query = rtrim($query, '&');
-		$url = $url . $query;
-
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 		curl_setopt($ch, CURLOPT_URL, $url);

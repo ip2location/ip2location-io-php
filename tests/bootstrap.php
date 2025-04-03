@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-$GLOBALS['testApiKey'] = 'YOUR_API_KEY';
+$GLOBALS['testApiKey'] = '562CD62D531835B6E79F9B4836D03674';
 
 if (!$loader = @include './vendor/autoload.php') {
-    die('Project dependencies missing');
+	exit('Project dependencies missing');
 }
 
 $loader->add('IP2LocationIO\Test', __DIR__);
