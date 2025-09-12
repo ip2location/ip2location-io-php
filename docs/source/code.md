@@ -43,6 +43,11 @@ Note: This parameter is only available for Plus and Security plan only.
 |time_zone|string|UTC time zone (with DST supported).|
 |asn|string|Autonomous system number (ASN).|
 |as|string|Autonomous system (AS) name.|
+|as_info.as_name|string|Autonomous system (AS) name.|
+|as_info.as_number|string|Autonomous system number (ASN).|
+|as_info.as_domain|string|Domain name of the AS registrant.|
+|as_info.as_cidr|string|CIDR range for the whole AS.|
+|as_info.as_usage_type|string|Usage type of the AS registrant.|
 |isp|string|Internet Service Provider or company's name.|
 |domain|string|Internet domain name associated with IP address range.|
 |net_speed|string|Internet connection type. DIAL = dial-up, DSL = broadband/cable/fiber/mobile, COMP = company/T1|
