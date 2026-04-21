@@ -106,6 +106,7 @@ Note: This parameter is only available for Plus and Security plan only.
 |proxy.is_public_proxy|boolean|Public Proxies.|
 |proxy.is_web_proxy|boolean|Web Proxies.|
 |proxy.is_web_crawler|boolean|Search Engine Robots.|
+|proxy.is_ai_crawler|boolean|Specifically identifies IP addresses used by artificial intelligence companies to crawl the web for LLM training data or real-time retrieval (RAG).|
 |proxy.is_residential_proxy|boolean|Residential proxies.|
 |proxy.is_spammer|boolean|Email and forum spammers.|
 |proxy.is_scanner|boolean|Network security scanners.|
