@@ -2,8 +2,20 @@
 
 require_once __DIR__ . '/vendor/autoload.php';
 
+// The API key is read from the environment so that it is never written into
+// source control. Set it before running this script:
+//
+//   Linux/macOS: export IP2LOCATION_API_KEY=your_api_key_here
+//   Windows cmd: set IP2LOCATION_API_KEY=your_api_key_here
+//
+$apiKey = (string) getenv('IP2LOCATION_API_KEY');
+
+if ($apiKey === '') {
+	exit('Please set the IP2LOCATION_API_KEY environment variable.' . PHP_EOL);
+}
+
 // Configures IP2Location.io API key
-$config = new \IP2LocationIO\Configuration('YOUR_API_KEY');
+$config = new \IP2LocationIO\Configuration($apiKey);
 
 // Lookup ip address geolocation data
 $geolocation = new IP2LocationIO\IPGeolocation($config);

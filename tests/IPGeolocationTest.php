@@ -6,54 +6,77 @@ use PHPUnit\Framework\TestCase;
 
 class IPGeolocationTest extends TestCase
 {
-	public function testInvalidApiKey()
-	{
-		$config = new IP2LocationIO\Configuration('A6BCA0A421AE4634816BA5F121DF8C05');
-		$geolocation = new IP2LocationIO\IPGeolocation($config);
+	const DUMMY_KEY = 'A6BCA0A421AE4634816BA5F121DF8C05';
 
+	private function geolocation($apiKey)
+	{
+		return new IP2LocationIO\IPGeolocation(new IP2LocationIO\Configuration($apiKey));
+	}
+
+	/**
+	 * Assert an API-level error with the given documented error code.
+	 *
+	 * The error codes are the documented contract; the wording of the messages is
+	 * not stable, so only assert that a message is present.
+	 */
+	private function assertApiError($expectedCode, callable $call)
+	{
 		try {
-			$geolocation->lookup('8.8.8.8');
+			$call();
+			$this->fail('Expected an API error with code ' . $expectedCode . '.');
+		} catch (IP2LocationIO\HttpException $e) {
+			$this->fail('Expected an API-level error but got a transport error: ' . $e->getMessage());
 		} catch (Exception $e) {
-			$this->assertEquals('Invalid API key or insufficient credit.', $e->getMessage());
+			$this->assertEquals($expectedCode, $e->getCode(), $e->getMessage());
+			$this->assertNotSame('', $e->getMessage());
 		}
 	}
 
-	public function testApiKeyExist()
+	private function skipWithoutApiKey()
 	{
-		if ($GLOBALS['testApiKey'] == 'YOUR_API_KEY') {
-			echo '/*
-* You could enter a IP2Location.io API Key in tests/bootstrap.php
-* for real web service calling test.
-*
-* You could sign up for a free API key at https://www.ip2location.io/pricing
-* if you do not have one.
-*/';
-			$this->assertEquals(
-				'YOUR_API_KEY',
-				$GLOBALS['testApiKey'],
-			);
-		} else {
-			$this->assertNotEquals(
-				'YOUR_API_KEY',
-				$GLOBALS['testApiKey'],
-			);
+		if ($GLOBALS['testApiKey'] === '') {
+			$this->markTestSkipped('Set IP2LOCATION_API_KEY to run live API tests.');
 		}
 	}
 
 	public function testLookupIP()
 	{
-		$config = new IP2LocationIO\Configuration($GLOBALS['testApiKey']);
-		$geolocation = new IP2LocationIO\IPGeolocation($config);
-		try {
-			$result = $geolocation->lookup('8.8.8.8');
-			$this->assertEquals(
-				'US',
-				$result->country_code,
-			);
-		} catch (Exception $e) {
-			if ($GLOBALS['testApiKey'] == 'YOUR_API_KEY') {
-				$this->assertEquals('Invalid API key or insufficient credit.', $e->getMessage());
-			}
-		}
+		$this->skipWithoutApiKey();
+
+		$result = $this->geolocation($GLOBALS['testApiKey'])->lookup('8.8.8.8');
+
+		$this->assertEquals('8.8.8.8', $result->ip);
+		$this->assertEquals('US', $result->country_code);
+	}
+
+	public function testLookupIPv6()
+	{
+		$this->skipWithoutApiKey();
+
+		$result = $this->geolocation($GLOBALS['testApiKey'])->lookup('2001:4860:4860::8888');
+
+		$this->assertEquals('US', $result->country_code);
+	}
+
+	public function testInvalidApiKeyRaisesApiError()
+	{
+		$this->skipWithoutApiKey();
+
+		$geolocation = $this->geolocation(self::DUMMY_KEY);
+
+		$this->assertApiError(10000, function () use ($geolocation) {
+			$geolocation->lookup('8.8.8.8');
+		});
+	}
+
+	public function testInvalidIpRaisesApiError()
+	{
+		$this->skipWithoutApiKey();
+
+		$geolocation = $this->geolocation($GLOBALS['testApiKey']);
+
+		$this->assertApiError(10001, function () use ($geolocation) {
+			$geolocation->lookup('not-an-ip');
+		});
 	}
 }

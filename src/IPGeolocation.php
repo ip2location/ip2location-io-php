@@ -7,19 +7,22 @@ namespace IP2LocationIO;
  */
 class IPGeolocation
 {
-	private $apiKey = '';
+	use ApiResponseTrait;
 
-	public function __construct($config)
+	/** @var Configuration */
+	private $config;
+
+	/** @var Http */
+	private $http;
+
+	/**
+	 * @param Configuration $config
+	 * @param Http|null     $http   optional transport override, mainly for testing
+	 */
+	public function __construct(Configuration $config, ?Http $http = null)
 	{
-		if (!isset($config->apiKey)) {
-			throw new \Exception('Please provide a valid API key.');
-		}
-
-		if (!preg_match('/^[A-Z0-9]{32}$/', $config->apiKey)) {
-			throw new \Exception('Please provide a valid API key.');
-		}
-
-		$this->apiKey = $config->apiKey;
+		$this->config = $config;
+		$this->http = $http ?: new Http();
 	}
 
 	/**
@@ -29,29 +32,21 @@ class IPGeolocation
 	 * @param string $language
 	 *
 	 * @return object
+	 *
+	 * @throws HttpException
 	 */
 	public function lookup($ip, $language = '')
 	{
-		$http = new Http();
-		$response = $http->get('https://api.ip2location.io/?' . http_build_query([
-			'key'            => $this->apiKey,
+		// The API key is sent as a bearer token rather than a URL parameter so it
+		// is never written to proxy or server access logs.
+		$response = $this->http->get('https://api.ip2location.io/?' . http_build_query([
 			'format'         => 'json',
 			'ip'             => $ip,
 			'lang'           => $language,
 			'source'         => 'sdk-php-iplio',
 			'source_version' => Configuration::VERSION,
-		]));
+		]), ['Authorization: Bearer ' . $this->config->getApiKey()]);
 
-		if (($json = json_decode($response)) === null) {
-			throw new \Exception('IPGeolocation lookup error.', 10005);
-		}
-
-		if (isset($json->error)) {
-			throw new \Exception($json->error->error_message, $json->error->error_code);
-		} else {
-			return $json;
-		}
+		return $this->parseResponse($response, 'IPGeolocation');
 	}
 }
-
-class_alias('IP2LocationIO\IPGeolocation', 'IP2LocationIO_IPGeolocation');

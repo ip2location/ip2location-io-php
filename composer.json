@@ -3,7 +3,7 @@
     "type": "library",
     "description": "IP2Location.io PHP SDK to get geolocation info from IPv4 and IPv6 address.",
     "license": "MIT",
-    "version": "1.1.0",
+    "version": "1.1.1",
     "authors": [
         {
             "name": "IP2Location",
@@ -12,7 +12,11 @@
     ],
     "require": {
         "php": ">=7.4",
-        "ext-curl": "*"
+        "ext-curl": "*",
+        "ext-json": "*"
+    },
+    "suggest": {
+        "ext-intl": "Required by the DomainWhois IDN helpers getPunycode(), getNormalText() and by IDN normalization in getDomainName()."
     },
     "require-dev": {
         "phpunit/phpunit": "^9"
@@ -20,7 +24,10 @@
     "autoload": {
         "psr-4": {
             "IP2LocationIO\\": "src/"
-        }
+        },
+        "files": [
+            "src/aliases.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {
