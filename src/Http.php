@@ -43,9 +43,9 @@ class Http
 	 * @param string $url
 	 * @param array  $headers additional request headers, e.g. an Authorization bearer token
 	 *
-	 * @return string the raw response body
-	 *
 	 * @throws HttpException on transport failure or an error response status
+	 *
+	 * @return string the raw response body
 	 */
 	public function get($url, array $headers = [])
 	{
@@ -77,7 +77,9 @@ class Http
 
 		$this->lastStatusCode = (int) curl_getinfo($ch, CURLINFO_HTTP_CODE);
 
-		curl_close($ch);
+		if (PHP_VERSION_ID < 80000) {
+			curl_close($ch);
+		}
 
 		if ($errno !== 0) {
 			// Carry the cURL errno through so a DNS failure is distinguishable from
